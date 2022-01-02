@@ -1,0 +1,12 @@
+# --- three different dash is need to discover the different profiles
+
+spring:
+  profiles: dev
+server:
+  port: 8082
+
+---
+spring:
+  profiles:prod
+server:
+  port: 8080

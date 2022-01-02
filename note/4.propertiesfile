@@ -13,3 +13,17 @@ spring.config.location=
 
 if the property is not found spring throws the illegal argument exception
 
+
+Properties Locations Priority
+---------------------------
+1. Command line properties
+2. JVM Parameters
+3. OS System Variables
+4. Classpath
+
+
+the properties file location----
+1. under <<config>>--folder
+2. current directory
+3. under <<config>>- folder <<under >>> classpath
+4. root classpath
