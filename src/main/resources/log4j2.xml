@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<Configuration status="WARN">-->
+<!--    <Appenders>-->
+<!--        <Console name="Console" target="SYSTEM_OUT">-->
+<!--            <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level - %msg%n"/>-->
+<!--        </Console>-->
+<!--        <Syslog-->
+<!--                name="Syslog"-->
+<!--                host="logsene-syslog-receiver.sematext.com"-->
+<!--                port="514"-->
+<!--                protocol="TCP"-->
+<!--                format="RFC5424"-->
+<!--                appName="ab6253c2-f76s-23s1-5dwx-d221dswf232s"-->
+<!--                facility="LOCAL0"-->
+<!--                mdcId="mdc"-->
+<!--                newLine="true"/>-->
+<!--    </Appenders>-->
+<!--    <Loggers>-->
+<!--        <Root level="info">-->
+<!--            <AppenderRef ref="Console"/>-->
+<!--            <AppenderRef ref="Syslog"/>-->
+<!--        </Root>-->
+<!--    </Loggers>-->
+<!--</Configuration>-->
