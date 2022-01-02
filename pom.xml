@@ -22,10 +22,24 @@
     </properties>
 
     <dependencies>
+<!--        we exclude the default spring boot starter logger-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
+<!--        using the log4j2 because we exclude the default logging from spring boot starter-->
+<!--        when the fault logger is exclude we need to specify any logging option else no logging is gonna be seen-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -86,6 +100,8 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
+
+
     </dependencies>
 
     <build>

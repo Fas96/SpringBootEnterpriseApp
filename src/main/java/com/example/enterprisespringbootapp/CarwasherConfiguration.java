@@ -12,6 +12,7 @@ public class CarwasherConfiguration {
 
     @PostConstruct
     public void init(){
-        System.out.println("Loaded test data: "+carwasherProperties.getLoadTestData());
+        System.out.println(carwasherProperties.getLoadTestData() );
+
     }
 }

@@ -1,12 +1,16 @@
 # --- three different dash is need to discover the different profiles
 
 spring:
-  profiles: dev
+  config:
+    activate:
+      on-profile: dev
 server:
   port: 8082
 
 ---
 spring:
-  profiles:prod
+  config:
+    activate:
+      on-profile: prod
 server:
   port: 8080

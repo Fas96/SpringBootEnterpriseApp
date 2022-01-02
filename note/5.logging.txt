@@ -1,0 +1,6 @@
+Jakarta Commons Logging API
+log4j2
+
+and
+
+spring-boot-starter-logging
