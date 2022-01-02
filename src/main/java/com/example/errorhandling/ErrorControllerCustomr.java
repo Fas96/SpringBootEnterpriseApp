@@ -1,4 +1,4 @@
-package com.example.controllers;
+package com.example.errorhandling;
 
 
 import org.springframework.boot.web.servlet.error.ErrorController;
