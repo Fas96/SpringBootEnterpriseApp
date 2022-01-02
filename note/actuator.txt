@@ -1,0 +1,89 @@
+what actuator provides?
+
+---------------------------
+exposes operational info
+/health
+/metrics
+/info
+/dump
+/env
+/trace
+
+
+details about /health
+
+only /health is unathorized | data collected from beans
+
+
+Customizing Endpoints
+---------------------
+To customize -> [ endpointname].[property]
+
+                        id
+                        enabled
+                        sensitive
+
+details about /metrics
+
+shows information about os,jvm,and as well as application level metrics
+-----------------------------
+info about os or jvm
+memory
+heap
+threads
+loaded-unloaded classes
+thread pools
+-----------------------------
+
+
+other endpoints
+
+
+/auditevents     | audit related security events we can filter by principle
+/beans            | returns beans related properties
+/conditions         | reports of configs on auto config
+/configprops        | fe
+/env
+/heapdump
+/liquibase
+/logfile
+/loggers
+/scheduledtasks    | details of all scheduled task
+/sessions
+/threaddump        | dumps in the underlying jvm
+
+
+__________________________________________________
+All endpoints are active by default
+we can deactive any of the endpoints
+
+
+
+to deactive any endpoint we need to use
+<<management.[endpointname].enabled=false>>
+
+to disable one.
+
+
+________________________________
+<<management.endpoints.enabled-by-default=false>>
+to disable all
+________________________________
+
+Access Over HTTP
+
+Note by default
+/health and
+/info      are accessible over the http
+
+
+TO access all the endpoints over the web
+<<management.endpoints.web.exposure.include=*>>  to allow all end points to http accessibility
+
+<<management.endpoints.web.exposure.include=name1,name2,name3>>  to enabled specific endpoints
+
+Acess PAths
+------------------------------
+paths can be changed
+<<management.endpoints.web.base-path=myActuators>>
+<<http://localhost:8080/myActuators/env>>
