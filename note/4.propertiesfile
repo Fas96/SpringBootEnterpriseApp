@@ -1,0 +1,15 @@
+#we can locate external properties files by specifying its directory
+#specify full location path
+spring.config.location=
+
+
+||| additionally the value property is used to get values from the property file
+
+@Value annotation
+
+# @value annottion access later
+# we can access this value in java using
+@Value("${EnterpriseBoot-User-boolean}")
+
+if the property is not found spring throws the illegal argument exception
+
