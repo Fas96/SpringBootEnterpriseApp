@@ -1,0 +1,11 @@
+error pages customization is needed
+
+resources/public/error
+
+404.html
+500.html
+502.html
+
+in the static resource folder
+
+@EnableAutoConfiguration(exclude = {ErrorMvcAutoConfiguration.class})
