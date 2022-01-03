@@ -20,6 +20,7 @@ public class CustomFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         logger.info("CustomFilter is invoked");
         filterChain.doFilter(request, response);
+        response.getWriter().write("Afer the custom filter");
     }
 
     // other methods
