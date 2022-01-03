@@ -13,6 +13,11 @@ public class CustomFilter implements Filter {
     Logger logger = LoggerFactory.getLogger(CustomFilter.class);
 
     @Override
+    public void destroy() {
+        Filter.super.destroy();
+    }
+
+    @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
     }

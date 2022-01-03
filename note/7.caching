@@ -1,0 +1,33 @@
+object cache
+full page cache
+
+
+serves static files from specific folders
+
+<<ResourceHttpRequestHandler>> is used
+----------------------------------------------
+spring.mvc.static-path-pattern=/resources/**
+----------------------------------------------
+
+any contents from the web jars are served in the webjars
+
+
+cache
+
+
+using version agnostics for webjars
+
+to configure cache busting for all static resources the following setting can be applied
+
+
+
+# cache busting
+
+spring.web.resources.chain.enabled=true
+spring.web.resources.chain.strategy.content.paths=/**
+#
+spring.web.resources.chain.strategy.content.enabled=true
+spring.resources.chain.strategy.content.paths=/**
+spring.web.resources.chain.strategy.fixed.enabled=true
+spring.web.resources.chain.strategy.fixed.paths=/js/lib/
+spring.web.resources.chain.strategy.fixed.version=v12
