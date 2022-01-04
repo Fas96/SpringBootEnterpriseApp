@@ -2,12 +2,16 @@ package com.example.controllers;
 
 import com.example.model.Car;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.test.context.event.annotation.BeforeTestClass;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -19,10 +23,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 class ResttestTest {
+    private RestTemplate restTemplate ;
+
+    @BeforeEach
+    public void init(){
+        restTemplate= new RestTemplate();
+    }
 
     @Test
     void getTest() {
-        RestTemplate restTemplate= new RestTemplate();
+
         String srcurl="http://localhost:8082";
         ResponseEntity<String> response=restTemplate.getForEntity(srcurl,String.class);
         log.info("{}",response);
@@ -30,7 +40,7 @@ class ResttestTest {
     }
     @Test
     void getTestObject() {
-        RestTemplate restTemplate= new RestTemplate();
+
         String srcurl="http://localhost:8082/cars";
         ArrayList<Car> car=restTemplate.getForObject(srcurl,ArrayList.class);
         assert car != null;
@@ -41,7 +51,7 @@ class ResttestTest {
 
     @Test
     void getTestHttpEntity() {
-        RestTemplate restTemplate= new RestTemplate();
+
         HttpEntity<Car> request= new HttpEntity<>(new Car());
         Car car = restTemplate.postForObject("http://localhost:8082/cars/addCar",request,Car.class);
 
@@ -54,7 +64,7 @@ class ResttestTest {
 
     @Test
     void getTestHttpEntityReturnURI() {
-        RestTemplate restTemplate= new RestTemplate();
+
         HttpEntity<Car> request= new HttpEntity<>(new Car());
         URI uri = restTemplate.postForObject("http://localhost:8082/cars/url",request,URI.class);
 
@@ -86,5 +96,6 @@ class ResttestTest {
 
         ResponseEntity<String> response= restTemplate.postForEntity("http://localhost:8082/cars/form",request,String.class);
 
+        log.info("{}",response);
     }
 }
