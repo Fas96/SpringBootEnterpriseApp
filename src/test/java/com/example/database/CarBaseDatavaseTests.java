@@ -6,8 +6,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.swing.*;
 import java.util.List;
 import java.util.Map;
 
@@ -15,11 +18,5 @@ import java.util.Map;
 @RunWith(SpringRunner.class)
 public class CarBaseDatavaseTests {
 
-    @Autowired
-    private JdbcTemplate template=new JdbcTemplate();
 
-    @Test
-    public void getCars(){
-        List<Map<String,Object>> queryForlist=template.queryForList("select * from Car");
-    }
 }
