@@ -24,8 +24,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .successHandler(successHandler())
                 .defaultSuccessUrl("/cars")
+                .loginProcessingUrl("/login")
+                .failureForwardUrl("/logon?loginFailed=true")
                 .and()
-                .logout().permitAll();
+                .logout()
+                .deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true)
+                .and()
+                .rememberMe().key("uniqueAndSecret");
     }
     @Bean
     public AuthenticationSuccessHandler successHandler() {
