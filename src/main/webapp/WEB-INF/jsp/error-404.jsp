@@ -6,5 +6,9 @@
 </head>
 <body>
 404----------
+<form action="/logout">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+    <input type="submit" value="Logout">
+</form>
 </body>
 </html>
