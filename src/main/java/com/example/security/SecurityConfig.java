@@ -18,7 +18,11 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.httpBasic().and()
+        http.httpBasic()
+                .and().csrf().disable()
+                .authorizeRequests().antMatchers("resources/**","H2-console/**").permitAll()
+                .and().headers().frameOptions().disable()
+                .and()
                 .authorizeRequests().anyRequest().authenticated()
                 .and()
                 .formLogin()
