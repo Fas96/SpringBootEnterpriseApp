@@ -1,5 +1,6 @@
 package com.example.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,9 +14,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
+import javax.sql.DataSource;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private DataSource dataSource;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic()
@@ -46,7 +51,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("user").password("{noop}user").roles("USER");
+        auth.jdbcAuthentication().dataSource(dataSource);
+//        auth.jdbcAuthentication().usersByUsernameQuery().authoritiesByUsernameQuery().groupAuthoritiesByUsername()
+//        auth.inMemoryAuthentication().withUser("user").password("{noop}user").roles("USER");
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
