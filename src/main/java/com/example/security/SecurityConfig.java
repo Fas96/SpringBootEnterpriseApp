@@ -51,7 +51,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource);
+        auth.jdbcAuthentication().dataSource(dataSource)
+                .passwordEncoder(passwordEncoder())
+                .usersByUsernameQuery("select u.username,  u.password,u.enabled from users u where u.username=?")
+                .authoritiesByUsernameQuery("select  r.username,r.authority from authorities r inner join users u on u.username=r.username where u.username=?");
 //        auth.jdbcAuthentication().usersByUsernameQuery().authoritiesByUsernameQuery().groupAuthoritiesByUsername()
 //        auth.inMemoryAuthentication().withUser("user").password("{noop}user").roles("USER");
     }
