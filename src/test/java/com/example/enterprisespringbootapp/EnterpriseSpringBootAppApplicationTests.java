@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 //@org.springframework.boot.test.context.SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @org.springframework.boot.test.context.SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -36,7 +37,10 @@ class EnterpriseSpringBootAppApplicationTests {
     @Test
     public void getCarTest() throws Exception {
 
-        this.mockMvc.perform(get("/cars")).andDo(System.out::println);
+        this.mockMvc
+                .perform(get("/cars"))
+                .andDo(System.out::println)
+                .andExpect(status().isOk());;
 
 
     }
