@@ -1,0 +1,10 @@
+Writing clean code is what you must do in order to call yourself a professional.
+There is no reasonable excuse for doing anything less than your best.
+-------------------------------------------------------------------------------
+
+Bad Code
+--------
+ LeBlanc’s law: Later equals never
+
+ The Total Cost of Owning a Mess
+ -------------------------------
