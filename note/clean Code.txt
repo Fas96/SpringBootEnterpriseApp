@@ -8,3 +8,200 @@ Bad Code
 
  The Total Cost of Owning a Mess
  -------------------------------
+
+
+Meaningful Names
+
+int d; // elapsed time in days
+comment on names to describe its intent if necessary
+------------------------
+int elapsedTimeInDays;
+int daysSinceCreation;
+int daysSinceModification;
+int fileAgeInDays;
+
+bad naming
+What is the purpose of this code?
+---------------------------------
+ public List<int[]> getThem() {
+ List<int[]> list1 = new ArrayList<int[]>();
+ for (int[] x : theList)
+ if (x[0] == 4)
+ list1.add(x);
+ return list1;
+ }
+---------------------------------
+Why is it hard to tell what this code is doing?
+
+
+:::::::::::::::::::::::::::::::::::::::::
+     public List<int[]> getFlaggedCells() {
+     List<int[]> flaggedCells = new ArrayList<int[]>();
+     for (int[] cell : gameBoard)
+        if (cell[STATUS_VALUE] == FLAGGED)
+            flaggedCells.add(cell);
+     return flaggedCells;
+     }
+Notice that the simplicity of the code has not changed
+----------------
+
+It can include an intention-revealing function (call it isFlagged) to hide the magic numbers.
+It results in a new version of the function:
+     public List<Cell> getFlaggedCells() {
+     List<Cell> flaggedCells = new ArrayList<Cell>();
+     for (Cell cell : gameBoard)
+         if (cell.isFlagged())
+            flaggedCells.add(cell);
+     return flaggedCells;
+     }
+With these simple name changes, it’s not difficult to understand what’s going on. This is
+the power of choosing good names.
+----------------------------------------
+There is an application we know of where this is illustrated. we’ve changed the names
+
+to protect the guilty, but here’s the exact form of the error:
+    getActiveAccount();
+    getActiveAccounts();
+    getActiveAccountInfo();
+How are the programmers in this project supposed to know which of these functions to call?
+In the absence of specific conventions, the variable moneyAmount is indistinguishable
+from money, customerInfo is indistinguishable from customer, accountData is indistinguishable from account, and theMessage is indistinguishable from message. Distinguish names in
+such a way that the reader knows what the differences offer.
+
+
+:::::::::::::::::::::::::::::::::::::::::::::
+Compare
+    class DtaRcrd102 {
+    private Date genymdhms;
+    private Date modymdhms;
+    private final String pszqint = "102";
+    /* ... */
+    };
+to
+    class Customer {
+    private Date generationTimestamp;
+    private Date modificationTimestamp;;
+    private final String recordId = "102";
+    /* ... */
+    };
+:::::::::::::::::::::::::::::::::::::::::::::
+[N5]. If a variable or constant might be seen or used in multiple places in a body of code,
+it is imperative to give it a search-friendly name. Once again compare
+    for (int j=0; j<34; j++) {
+    s += (t[j]*4)/5;
+    }
+to
+    int realDaysPerIdealDay = 4;
+    const int WORK_DAYS_PER_WEEK = 5;
+    int sum = 0;
+    for (int j=0; j < NUMBER_OF_TASKS; j++) {
+        int realTaskDays = taskEstimate[j] * realDaysPerIdealDay;
+        int realTaskWeeks = (realdays / WORK_DAYS_PER_WEEK);
+        sum += realTaskWeeks;
+    }
+Note that sum, above, is not a particularly useful name but at least is searchable.
+
+:::::::::::::::::::::::::::::::::::::::::::
+Interfaces and Implementations
+These are sometimes a special case for encodings. For example, say you are building an
+ABSTRACT FACTORY for the creation of shapes. This factory will be an interface and will
+be implemented by a concrete class. What should you name them? IShapeFactory and
+ShapeFactory? I prefer to leave interfaces unadorned. The preceding I, so common in
+today’s legacy wads, is a distraction at best and too much information at worst. I don’t
+want my users knowing that I’m handing them an interface. I just want them to know that
+it’s a ShapeFactory. So if I must encode either the interface or the implementation, I choose
+the implementation. Calling it ShapeFactoryImp, or even the hideous CShapeFactory, is preferable to encoding the interface.
+
+::::::::::::::::::::::::::::::::::::::::::
+Class Names
+Classes and objects should have noun or noun phrase names like Customer, WikiPage,
+Account, and AddressParser. Avoid words like Manager, Processor, Data, or Info in the name
+of a class. A class name should not be a verb.
+
+::::::::::::::::::::::::::::::::::::::::::
+Method Names
+Methods should have verb or verb phrase names like postPayment, deletePage, or save.
+Accessors, mutators, and predicates should be named for their value and prefixed with get,
+set, and is according to the javabean standard.4
+    string name = employee.getName();
+    customer.setName("mike");
+    if (paycheck.isPosted())...
+When constructors are overloaded, use static factory methods with names that
+describe the arguments. For example,
+
+    Complex fulcrumPoint = Complex.FromRealNumber(23.0);
+is generally better than
+    Complex fulcrumPoint = new Complex(23.0);
+Consider enforcing their use by making the corresponding constructors private.
+
+:::::::::::::::::::::::::::::::::::::::::
+Payroll.java
+    public Money calculatePay(Employee e)
+        throws InvalidEmployeeType {
+             switch (e.type) {
+                case COMMISSIONED:
+                    return calculateCommissionedPay(e);
+                case HOURLY:
+                    return calculateHourlyPay(e);
+                case SALARIED:
+                    return calculateSalariedPay(e);
+                default:
+                    throw new InvalidEmployeeType(e.type);
+         }
+     }
+
+
+
+   :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+   UserValidator.java
+   public class UserValidator {
+        private Cryptographer cryptographer;
+            public boolean checkPassword(String userName, String password) {
+                User user = UserGateway.findByName(userName);
+                if (user != User.NULL) {
+                    String codedPhrase = user.getPhraseEncodedByPassword();
+                    String phrase = cryptographer.decrypt(codedPhrase, password);
+                if ("Valid Password".equals(phrase)) {
+                    Session.initialize();
+                    return true;
+                }
+            }
+            return false;
+        }
+   }
+   The side effect is the call to Session.initialize(), of course.
+   The checkPassword function, by its name, says that it checks the password.
+    The name does not imply that it initializes the session.
+   :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+   On the other hand, if you use exceptions instead of returned error codes, then the error
+   processing code can be separated from the happy path code and can be simplified:
+   try {
+       deletePage(page);
+       registry.deleteReference(page.name);
+       configKeys.deleteKey(page.name.makeKey());
+       }
+       catch (Exception e) {
+       logger.log(e.getMessage());
+   }
+   :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Prefer Exceptions to Returning Error Codes 47
+     public void delete(Page page) {
+         try {
+            deletePageAndAllReferences(page);
+              }  catch (Exception e) {
+             logError(e);
+
+             }
+         }
+
+         private void deletePageAndAllReferences(Page page) throws Exception {
+             deletePage(page);
+             registry.deleteReference(page.name);
+             configKeys.deleteKey(page.name.makeKey());
+         }
+
+         private void logError(Exception e) {
+            logger.log(e.getMessage());
+            }
+In the above, the delete function is all about error processing. It is easy to understand
+and then ignore.

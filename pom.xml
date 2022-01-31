@@ -42,6 +42,19 @@
         </dependency>
 
         <dependency>
+            <groupId>de.tudarmstadt.ukp.wikipedia</groupId>
+            <artifactId>de.tudarmstadt.ukp.wikipedia.api</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.servlet.jsp.jstl/jstl-api -->
+        <dependency>
+            <groupId>javax.servlet.jsp.jstl</groupId>
+            <artifactId>jstl-api</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <scope>test</scope>
@@ -133,6 +146,7 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+
 
 
     </dependencies>
