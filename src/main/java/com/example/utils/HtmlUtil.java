@@ -1,5 +1,8 @@
-package com.example;
+package com.example.utils;
 
+import fitnesse.wiki.PathParser;
+import fitnesse.wiki.WikiPage;
+import fitnesse.wiki.WikiPagePath;
 import lombok.var;
 
 import javax.servlet.jsp.*;
@@ -49,10 +52,13 @@ public class HtmlUtil {
                                 SuiteResponder.SUITE_TEARDOWN_NAME,
                                 wikiPage
                         );
+
                 if (suiteTeardown != null) {
+
                     WikiPagePath pagePath =
-                            suiteTeardown.getPageCrawler().getFullPath (suiteTeardown);
+                            suiteTeardown.getPageCrawler().getFullPath(suiteTeardown);
                     String pagePathName = PathParser.render(pagePath);
+
                     buffer.append("!include -teardown .")
                             .append(pagePathName)
                             .append("\n");

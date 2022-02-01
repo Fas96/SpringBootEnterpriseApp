@@ -205,3 +205,94 @@ Prefer Exceptions to Returning Error Codes 47
             }
 In the above, the delete function is all about error processing. It is easy to understand
 and then ignore.
+
+
+----------------------------------------------------------------
+    MockRequest request;
+    private final String HTTP_DATE_REGEXP =
+     "[SMTWF][a-z]{2}\\,\\s[0-9]{2}\\s[JFMASOND][a-z]{2}\\s"+
+     "[0-9]{4}\\s[0-9]{2}\\:[0-9]{2}\\:[0-9]{2}\\sGMT";
+    private Response response;
+    private FitNesseContext context;
+    private FileResponder responder;
+    private Locale saveLocale;
+    // Example: "Tue, 02 Apr 2003 22:18:49 GMT"
+Other instance variables that were probably added later were interposed between the
+HTTP_DATE_REGEXP constant and it’s explanatory comment.
+----------------------------------------------------------------
+Comments Do Not Make Up for Bad Code
+----------------------------------------------------------------
+This:
+// Check to see if the employee is eligible for full benefits
+    if ((employee.flags & HOURLY_FLAG) &&
+     (employee.age > 65))
+Or this?
+    if (employee.isEligibleForFullBenefits())
+It takes only a few seconds of thought to explain most of your intent in code.
+
+----------------------------------------------------------------
+For example, consider this comment that explains the return value of an abstract method:
+// Returns an instance of the Responder being tested.
+protected abstract Responder responderInstance();
+A comment like this can sometimes be useful, but it is better to use the name of the function to convey the information where possible. For example, in this case the comment
+could be made redundant by renaming the function: responderBeingTested.
+
+Here’s a case that’s a bit better:
+// format matched kk:mm:ss EEE, MMM dd, yyyy
+Pattern timeMatcher = Pattern.compile(
+ "\\d*:\\d*:\\d* \\w*, \\w* \\d*, \\d*");
+
+ In this case the comment lets us know that the regular expression is intended to match a
+ time and date that were formatted with the SimpleDateFormat.format function using the
+ specified format string.
+----------------------------------------------------------------
+
+Warning of Consequences
+:::::::::::::::::::::::
+:Sometimes it is useful to warn other programmers about certain consequences.
+// Don't run unless you
+// have some time to kill.
+public void _testWithReallyBigFile() {
+    writeLinesToFile(10000000);
+    response.setBody(testFile);
+    response.readyToSend(this);
+    String responseString = output.toString();
+    assertSubString("Content-Length: 1000000000", responseString);
+    assertTrue(bytesSent > 1000000000);
+    }
+
+
+ ------------------------------------------------------------
+ Nowadays, of course, we’d turn off the test case by using the @Ignore attribute with an
+ appropriate explanatory string. @Ignore("Takes too long to run"). But back in the days
+ before JUnit 4, putting an underscore in front of the method name was a common convention. The comment, while flippant, makes the point pretty well.
+ Here’s another, more poignant example:
+ public static SimpleDateFormat makeStandardHttpDateFormat() {
+     //SimpleDateFormat is not thread safe,
+     //so we need to create each instance independently.
+     SimpleDateFormat df = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
+     df.setTimeZone(TimeZone.getTimeZone("GMT"));
+     return df;
+  }
+
+  ----------------------------------------------------------
+  A comment may be used to amplify the importance of something that may otherwise seem
+  inconsequential.
+          String listItemContent = match.group(3).trim();
+          // the trim is real important. It removes the starting
+          // spaces that could cause the item to be recognized
+          // as another list.
+          new ListItemWidget(this, listItemContent, this.level + 1);
+          return buildList(text.substring(match.end()));
+
+          -----------------------------------------------
+      Consider the following stretch of code:
+      // does the module from the global list <mod> depend on the
+      // subsystem we are part of?
+      if (smodule.getDependSubsystems().contains(subSysMod.getSubSystem()))
+      This could be rephrased without the comment as
+      ArrayList moduleDependees = smodule.getDependSubsystems();
+      String ourSubSystem = subSysMod.getSubSystem();
+      if (moduleDependees.contains(ourSubSystem))
+      The author of the original code may have written the comment first (unlikely) and then
+      written the code to fulfill the comment
