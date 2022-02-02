@@ -12,10 +12,7 @@ public class CustomFilter implements Filter {
 
     Logger logger = LoggerFactory.getLogger(CustomFilter.class);
 
-    @Override
-    public void destroy() {
-        Filter.super.destroy();
-    }
+
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -26,6 +23,11 @@ public class CustomFilter implements Filter {
         logger.info("CustomFilter is invoked");
 
         filterChain.doFilter(request, response);
+    }
+
+    @Override
+    public void destroy() {
+
     }
 
     // other methods

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 public class ErrorControllerCustomr  implements ErrorController {
     @GetMapping("/error")
     public String handleError(HttpServletRequest request) {
-        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+        Object status = request.getAttribute(String.valueOf(RequestDispatcher.class));
         System.out.println("-------------------------this error page was called -----------------------");
         if (status != null) {
             Integer statusCode = Integer.valueOf(status.toString());
