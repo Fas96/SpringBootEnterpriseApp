@@ -296,3 +296,19 @@ public void _testWithReallyBigFile() {
       if (moduleDependees.contains(ourSubSystem))
       The author of the original code may have written the comment first (unlikely) and then
       written the code to fulfill the comment
+
+
+      ----------------------
+      A cleaner way to use Map might look like the following. No user of Sensors would care
+      one bit if generics were used or not. That choice has become (and always should be) an
+      implementation detail.
+          public class Sensors {
+              private Map sensors = new HashMap();
+              public Sensor getById(String id) {
+              return (Sensor) sensors.get(id);
+              }
+              //snip
+          }
+
+  The interface at the boundary (Map) is hidden. It is able to evolve with very little impact on
+  the rest of the application.
