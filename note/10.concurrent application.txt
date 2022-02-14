@@ -1,0 +1,27 @@
+Bound Resources
+
+Resources of a fixed size or number used in a concurrent environ- ment.
+Examples include database connections and fixed-size read/ write buffers.
+
+
+Mutual Exclusion
+
+Only one thread can access shared data or a shared resource at a time.
+
+
+Starvation
+
+One thread or a group of threads is prohibited from proceeding for an excessively long time or forever.
+ For example, always let- ting fast-running threads through
+first could starve out longer run- ning threads if there is no end to the fast-running threads.
+
+Deadlock
+
+Two or more threads waiting for each other to finish. Each thread has
+ a resource that the other thread requires and neither can finish until
+ it gets the other resource.
+
+ Livelock
+
+ Threads in lockstep, each trying to do work but finding another “in the way.” Due to resonance,
+ threads continue trying to make progress but are unable to for an excessively long time— or forever.
