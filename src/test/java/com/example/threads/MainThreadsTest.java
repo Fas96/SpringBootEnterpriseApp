@@ -6,7 +6,7 @@ import org.junit.Assert;
 
 public class MainThreadsTest extends TestCase {
 
-    public void test_threads(){
+    public void test_threads() throws Exception {
 
         Assert.assertTrue(2==2);
         Assert.assertEquals(nextUrlOrNull(),"fas");
